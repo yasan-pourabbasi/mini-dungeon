@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Dungeon — Stage 4, 5, 6 & 7</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="menu" class="menu-screen">
+    <div class="menu-vignette"></div>
+    <div class="menu-logo"><span>MINI</span><strong>DUNGEON</strong><i>✦</i></div>
+    <p class="menu-subtitle">A PIXEL ART ADVENTURE</p>
+    <div class="menu-actions">
+      <button id="playButton">PLAY</button>
+      <button id="howButton">HOW TO PLAY</button>
+    </div>
+    <p class="menu-foot">STAGES 04–07 · MERCHANT, THE GAUNTLET, SHADOW KING & ECLIPSE</p>
+  </main>
+
+  <main id="game" class="game-screen hidden">
+    <header class="hud">
+      <button id="menuButton" class="hud-button">← MENU</button>
+      <div class="hud-title">THE FORGOTTEN HALL <small>STAGE 04 → 07 · THE ECLIPSE</small></div>
+      <div class="health-box">
+        <span>HERO</span>
+        <div class="health-track"><i id="heroHealth"></i></div>
+        <b id="heroHealthText">100 / 100</b>
+      </div>
+    </header>
+
+    <section class="game-frame">
+      <canvas id="gameCanvas" width="960" height="600" tabindex="0" aria-label="Mini Dungeon game"></canvas>
+      <div class="game-message" id="gameMessage">DEFEAT THE DUNGEON SLIMES!</div>
+      <div class="game-over hidden" id="gameOver">
+        <h2 id="resultTitle">STAGE COMPLETE!</h2>
+        <p id="resultText">The Shadow King is waiting.</p>
+        <button id="restartButton">PLAY AGAIN</button>
+      </div>
+
+      <div class="shop-overlay hidden" id="shopOverlay">
+        <div class="merchant-layout">
+          <section class="inventory-panel">
+            <div class="panel-heading">🎒 INVENTORY</div>
+            <div class="inventory-grid">
+              <div class="inventory-slot" title="Starter blade">⚔️</div><div class="inventory-slot" id="invSword" title="Iron sword">🗡️</div>
+              <div class="inventory-slot" id="invAxe" title="Battle axe">🪓</div><div class="inventory-slot" id="invMace" title="Iron mace">🔨</div>
+              <div class="inventory-slot" id="invStaff" title="Arcane staff">🪄</div><div class="inventory-slot" title="Armor">🛡️</div>
+              <div class="inventory-slot" title="Health potion">🧪</div><div class="inventory-slot empty-slot">?</div>
+              <div class="inventory-slot empty-slot">?</div><div class="inventory-slot empty-slot">?</div>
+              <div class="inventory-slot empty-slot">?</div><div class="inventory-slot empty-slot">?</div>
+            </div>
+            <div class="inventory-footer"><span>ALL ITEMS</span><b>PAGE 1 / 1</b></div>
+          </section>
+          <section class="merchant-side">
+            <div class="merchant-dialog">Take a look, adventurer! I've got some useful things for your next battle.</div>
+            <div class="merchant-scene">
+              <div class="merchant-character"><div class="merchant-hood"></div><div class="merchant-face"><i></i><i></i><b></b></div><div class="merchant-body"></div><div class="merchant-hand"></div></div>
+              <div class="merchant-counter"><span>☠️</span><span>🧪</span><span>🧴</span><span>🪙 🪙</span></div>
+            </div>
+            <div class="merchant-shop-panel">
+              <div class="merchant-tabs"><b>🪙 SHOP</b><span>🎲 GAMBLING</span></div>
+              <div class="merchant-items">
+                <div class="merchant-item weapon-card" id="weaponCardSword"><div class="weapon-art"><svg viewBox="0 0 64 64"><path d="M45 4L53 12 25 42 18 35Z" fill="#dce8ed"/><path d="M10 38L26 54 22 58 6 42Z" fill="#bd8747"/></svg></div><b>IRON SWORD</b><small>Damage +1</small><button data-weapon="sword">15 ✦</button></div>
+                <div class="merchant-item weapon-card" id="weaponCardAxe"><div class="weapon-art"><svg viewBox="0 0 64 64"><path d="M28 12L35 16 19 58 12 55Z" fill="#8b5b36"/><path d="M29 9L39 6 55 16 51 34 39 30Z" fill="#c4d0d8"/></svg></div><b>BATTLE AXE</b><small>Damage +2</small><button data-weapon="axe">20 ✦</button></div>
+                <div class="merchant-item weapon-card" id="weaponCardMace"><div class="weapon-art"><svg viewBox="0 0 64 64"><path d="M28 22L35 24 24 59 17 57Z" fill="#8b5b36"/><path d="M16 12L24 7 31 13 39 7 47 14 44 23 49 30 39 37 31 32Z" fill="#9da9b5"/></svg></div><b>IRON MACE</b><small>Damage +3</small><button data-weapon="mace">25 ✦</button></div>
+                <div class="merchant-item weapon-card" id="weaponCardStaff"><div class="weapon-art"><svg viewBox="0 0 64 64"><path d="M23 16L29 18 17 60 10 58Z" fill="#79502f"/><path d="M23 11L28 4 33 11 40 14 33 20 30 28Z" fill="#ad69e8"/></svg></div><b>ARCANE STAFF</b><small>Magic · Range +</small><button data-weapon="staff">30 ✦</button></div>
+                <div class="merchant-item utility-item"><div class="utility-icon">🛡️</div><b>ARMOR</b><small id="armorLevel">Level 0</small><button id="buyArmor">20 ✦</button></div>
+                <div class="merchant-item utility-item"><div class="utility-icon">🧪</div><b>POTION</b><small id="potionCount">Potions: 0</small><button id="buyPotion">10 ✦</button></div>
+              </div>
+              <div class="shop-bottom"><span>YOUR GOLD: <b id="shopCoins">0</b> ✦</span><span id="shopNote">Choose your gear.</span></div>
+              <button class="shop-continue" id="finishShop">ENTER STAGE 05 →</button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <footer class="game-controls">
+      <div><b>MOVE</b><span>W A S D / ARROW KEYS</span></div>
+      <div><b>ATTACK</b><span>SPACE / CLICK</span></div>
+      <div class="objective" id="objective">SLIMES LEFT: 3</div>
+      <button id="attackButton" class="attack-button">⚔ ATTACK</button>
+    </footer>
+
+    <div class="mobile-pad" aria-label="Touch movement controls">
+      <button data-move="up">▲</button>
+      <div><button data-move="left">◀</button><button data-move="down">▼</button><button data-move="right">▶</button></div>
+    </div>
+  </main>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-card">
+      <button id="closeModal" class="modal-close">×</button>
+      <h2>HOW TO PLAY</h2>
+      <p>Explore the dungeon, visit the merchant, survive the gauntlet, defeat the Shadow King and face the Eclipse Warden.</p>
+      <p><b>Move:</b> W A S D or Arrow Keys</p>
+      <p><b>Attack:</b> SPACE or click inside the room</p>
+      <p><b>Mobile:</b> Use the direction pad and ATTACK button</p>
+      <button id="modalOk">GOT IT</button>
+    </div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>

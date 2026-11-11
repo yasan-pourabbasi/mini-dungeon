@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&display=swap');
+:root{--gold:#e5b879;--dark:#120e17;--panel:#211824}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:#100d14;color:#f4dfc6;font-family:Cinzel,Georgia,serif}
+body{overflow:hidden}
+button{font:inherit;cursor:pointer}
+.hidden{display:none!important}
+.menu-screen{height:100vh;min-height:540px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;background:
+ radial-gradient(ellipse at 50% 65%,#7e351f55,transparent 38%),
+ linear-gradient(180deg,#1b1420,#351c20 55%,#100b12)}
+.menu-screen:before{content:"";position:absolute;inset:0;background:
+ repeating-linear-gradient(90deg,transparent 0 95px,#0b081044 97px 101px),
+ repeating-linear-gradient(0deg,transparent 0 72px,#0b081055 74px 78px);
+ opacity:.6}
+.menu-vignette{position:absolute;inset:0;background:radial-gradient(ellipse,transparent 20%,#08060bd9 100%)}
+.menu-logo{z-index:1;text-align:center;color:#fff;text-shadow:0 0 14px #fff9,0 5px 12px #000;font-family:Georgia,serif}
+.menu-logo span{display:block;font-size:clamp(30px,5vw,52px);letter-spacing:12px}
+.menu-logo strong{display:block;font-size:clamp(55px,9vw,100px);line-height:.95}
+.menu-logo i{display:block;font-style:normal;font-size:32px;margin-top:10px}
+.menu-subtitle{z-index:1;letter-spacing:5px;font-size:11px;color:#d6a978;margin:20px 0 38px}
+.menu-actions{z-index:1;display:flex;flex-direction:column;gap:15px;width:230px}
+.menu-actions button,.modal-card button,.game-over button{border:3px solid #633b27;border-radius:8px;padding:14px;background:linear-gradient(#efc58c,#b97846);color:#5c321f;font-weight:900;box-shadow:inset 0 3px #ffe3b5,0 5px #321d1a,0 10px 20px #0008}
+.menu-actions button:hover,.modal-card button:hover,.game-over button:hover{filter:brightness(1.12);transform:translateY(-2px)}
+.menu-foot{z-index:1;position:absolute;bottom:18px;font-size:9px;letter-spacing:3px;color:#c9a88c}
+.game-screen{height:100vh;min-height:550px;display:grid;grid-template-rows:64px minmax(0,1fr) 65px;gap:10px;padding:12px 18px 8px;background:radial-gradient(ellipse at center,#34212a,#100c13 80%)}
+.hud,.game-controls{width:min(1100px,100%);margin:auto;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.hud-button,.attack-button{border:2px solid #754b30;background:linear-gradient(#e6b87d,#a96b42);color:#4c2b1e;padding:10px 13px;border-radius:6px;font-weight:900;font-size:10px;box-shadow:inset 0 2px #ffe2b3,0 3px #2c1918}
+.hud-title{text-align:center;font-size:13px;letter-spacing:2px;color:#f1d3ad;font-weight:900}
+.hud-title small{display:block;font-size:8px;color:#bb8d63;letter-spacing:3px;margin-top:4px}
+.health-box{display:grid;grid-template-columns:auto 110px auto;align-items:center;gap:8px;font-size:9px;color:#e6c9a4}
+.health-track{height:11px;border:1px solid #a77a53;background:#351c22;padding:1px}
+.health-track i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#76b84e,#b5d56a);transition:width .15s}
+.game-frame{position:relative;min-height:0;display:grid;place-items:center}
+canvas{display:block;width:min(100%,960px);height:auto;max-height:100%;aspect-ratio:8/5;border:9px solid #49302a;outline:3px ridge #986542;box-shadow:0 20px 55px #000b,inset 0 0 30px #000;image-rendering:pixelated;cursor:crosshair;background:#20232e}
+.game-message{position:absolute;top:12px;left:50%;transform:translateX(-50%);padding:7px 13px;background:#130d19c9;border:1px solid #76513b;color:#edc58f;font-size:9px;letter-spacing:2px;white-space:nowrap;pointer-events:none}
+.game-controls{font-size:9px;color:#b99c7e}
+.game-controls div{display:flex;flex-direction:column;gap:5px}
+.game-controls b{color:#e4bc8b;letter-spacing:2px}
+.game-controls span{font-size:8px;letter-spacing:1px}
+.objective{color:#d6a2f5;font-weight:900;letter-spacing:1px}
+.attack-button{font-size:11px;padding:12px 20px}
+.game-over{position:absolute;inset:0;margin:auto;width:min(380px,90%);height:max-content;padding:28px;background:#1b1421f2;border:4px ridge #a06b48;box-shadow:0 15px 50px #000;text-align:center}
+.game-over h2{color:#f0c48b;font-size:23px}
+.game-over p{color:#d2b99d;font:14px Georgia,serif}
+.game-over button{margin-top:10px}
+.modal{position:fixed;inset:0;z-index:10;background:#08060bd9;display:grid;place-items:center;padding:20px}
+.modal-card{position:relative;width:min(420px,100%);padding:30px;background:linear-gradient(145deg,#4b2d27,#211722);border:5px ridge #a16d45;box-shadow:0 20px 60px #000;text-align:center}
+.modal-card h2{color:#f2c58d}
+.modal-card p{font:14px/1.5 Georgia,serif;color:#e1c7a8}
+.modal-card button{margin-top:12px;padding:10px 25px}
+.modal-close{position:absolute;right:8px;top:5px;border:0!important;background:none!important;color:#f5d8b5!important;box-shadow:none!important;font-size:26px;padding:2px 8px!important}
+.mobile-pad{display:none}
+@media(max-width:650px){
+ .game-screen{padding:7px;grid-template-rows:52px minmax(0,1fr) 55px;gap:5px}
+ .hud-title{font-size:9px;letter-spacing:1px}.hud-title small{font-size:6px}
+ .health-box{grid-template-columns:auto 55px auto;gap:4px;font-size:7px}
+ .hud-button{padding:8px 7px;font-size:8px}
+ .game-controls{justify-content:flex-start;gap:12px;flex-wrap:wrap}.game-controls span{font-size:6px}.game-controls .objective{display:none}
+ .attack-button{margin-left:auto;padding:10px 12px}
+ .mobile-pad{display:flex;position:fixed;right:15px;bottom:72px;z-index:4;flex-direction:column;gap:4px}
+ .mobile-pad>button,.mobile-pad div button{width:38px;height:32px;border:1px solid #bb8959;background:#4b3029dd;color:#ffe0b2;border-radius:5px}
+ .mobile-pad div{display:flex;gap:4px}
+ .game-message{font-size:7px;top:8px}
+}
+
+.shop-overlay{position:absolute;inset:0;z-index:5;display:grid;place-items:center;padding:14px;background:#08060bdc;backdrop-filter:blur(3px)}
+.shop-card{width:min(510px,96%);max-height:95%;overflow:auto;padding:22px;background:linear-gradient(145deg,#493027,#211722 70%);border:5px ridge #a8794d;box-shadow:0 18px 55px #000;text-align:center}
+.shop-kicker{font-size:9px;letter-spacing:3px;color:#d9a66d}
+.shop-card h2{margin:8px 0;color:#f4d09b;font-size:27px;text-shadow:0 3px #382019}
+.shop-intro{font:13px Georgia,serif;color:#ddc4a6;margin:0 0 12px}
+.shop-wallet{display:inline-block;padding:8px 15px;margin:3px auto 13px;background:#17111c;border:1px solid #8b633f;color:#e8c18a;font-size:12px;letter-spacing:1px}
+.shop-wallet b{font-size:17px;color:#fff0c5}.shop-wallet span{color:#f4c65f}
+.shop-items{display:grid;gap:8px;text-align:left}
+.shop-item{display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:9px;padding:9px;background:#17131d;border:1px solid #644632}
+.item-icon{font-size:24px;text-align:center;color:#efc58b}
+.item-info{display:flex;flex-direction:column;gap:3px}.item-info b{font-size:10px;color:#f3d4a7;letter-spacing:1px}
+.item-info small{font:11px Georgia,serif;color:#c7ad91}
+.shop-item button,.shop-continue{border:2px solid #70482e;border-radius:5px;padding:8px 10px;background:linear-gradient(#efc58c,#b97846);color:#4e2c1d;font-weight:900;font-size:10px}
+.shop-item button:disabled{filter:grayscale(1);opacity:.45;cursor:not-allowed}
+.shop-note{min-height:16px;font:12px Georgia,serif;color:#e6c08d;margin:12px 0 5px}
+.shop-continue{padding:11px 22px;margin-top:5px}
+@media(max-width:500px){.shop-card{padding:14px}.shop-card h2{font-size:21px}.shop-item{grid-template-columns:30px 1fr auto;gap:5px;padding:7px}.item-info b{font-size:8px}.item-info small{font-size:9px}.shop-item button{font-size:8px;padding:7px 6px}}
+
+.shop-card{width:min(620px,97%);}
+.shop-section-title{font-size:10px;letter-spacing:2px;color:#e9bd83;text-align:left;margin:5px 0 8px;padding-bottom:5px;border-bottom:1px solid #79583e}
+.weapon-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:13px}
+.weapon-card{min-width:0;padding:8px 5px 9px;background:linear-gradient(160deg,#302535,#17131d);border:2px solid #584033;text-align:center;display:flex;align-items:center;flex-direction:column;gap:5px}
+.weapon-card.equipped{border-color:#e8bd70;box-shadow:0 0 12px #d79b4b55,inset 0 0 12px #d79b4b22}
+.weapon-art{height:68px;width:100%;display:grid;place-items:center;background:radial-gradient(ellipse,#55405b,#211b29 70%);border:1px solid #76553e}
+.weapon-art svg{width:62px;height:62px;image-rendering:pixelated;filter:drop-shadow(2px 3px 1px #000)}
+.weapon-card b{font-size:9px;letter-spacing:.5px;color:#f0d4ae}
+.weapon-card small{min-height:24px;font:10px Georgia,serif;color:#c5ae98}
+.weapon-card button{width:100%;padding:7px 2px;border:2px solid #70482e;border-radius:4px;background:linear-gradient(#efc58c,#b97846);color:#4e2c1d;font-size:9px;font-weight:900}
+.weapon-card button:disabled{opacity:.45;filter:grayscale(1);cursor:not-allowed}
+.utility-title{margin-top:4px}
+@media(max-width:520px){.weapon-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.weapon-art{height:55px}.weapon-art svg{height:52px}.weapon-card{padding:6px 4px}.shop-card{max-height:96%;padding:12px}}
+
+/* Merchant shop: inventory + character scene, inspired by the supplied reference */
+.shop-overlay{background:linear-gradient(120deg,#07151adf,#0b1019eF);padding:12px;backdrop-filter:blur(3px)}
+.merchant-layout{width:min(900px,99%);height:min(560px,96%);display:grid;grid-template-columns: minmax(190px,.9fr) minmax(300px,1.45fr);gap:12px;padding:12px;background:linear-gradient(145deg,#263b3b,#111b23 72%);border:5px ridge #65706a;box-shadow:0 20px 60px #000;overflow:auto}
+.inventory-panel{background:#111820;border:4px ridge #53605e;padding:12px;min-width:0}
+.panel-heading{font-size:12px;letter-spacing:2px;color:#e8d1a8;padding-bottom:10px;border-bottom:1px solid #56605c}
+.inventory-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:12px}
+.inventory-slot{aspect-ratio:1;display:grid;place-items:center;background:linear-gradient(145deg,#453a3a,#211e25);border:3px ridge #827066;font-size:clamp(19px,3vw,29px);box-shadow:inset 0 0 8px #000}
+.inventory-slot.owned{border-color:#e4bc71;box-shadow:0 0 9px #e4bc7166,inset 0 0 9px #e4bc7133}
+.inventory-slot.empty-slot{font-size:14px;color:#514b50;background:#19191e;border-style:solid}
+.inventory-footer{display:flex;justify-content:space-between;margin-top:14px;padding-top:9px;border-top:1px solid #4e5654;font-size:8px;letter-spacing:1px;color:#c5b49c}
+.merchant-side{display:flex;flex-direction:column;min-width:0;gap:7px}
+.merchant-dialog{align-self:flex-start;max-width:85%;padding:11px 14px;background:#080b10;border:3px solid #7d8580;border-radius:9px;color:#eee4d2;font: bold 13px/1.35 Georgia,serif;box-shadow:0 4px 8px #0008}
+.merchant-scene{position:relative;min-height:135px;flex:1;background:radial-gradient(ellipse at 65% 30%,#b58d4b77,transparent 38%),linear-gradient(145deg,#315b58,#172d35 60%,#121a22);border:2px solid #60716a;overflow:hidden}
+.merchant-scene:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 43px,#0a121744 45px 49px),repeating-linear-gradient(0deg,transparent 0 34px,#0a121744 36px 40px)}
+.merchant-character{position:absolute;right:24%;top:8px;width:104px;height:118px;image-rendering:pixelated}
+.merchant-hood{position:absolute;left:10px;top:0;width:84px;height:83px;background:#47345e;border:6px solid #211d32;border-radius:48% 48% 28% 28%;box-shadow:inset 8px 0 #70518a}
+.merchant-face{position:absolute;left:30px;top:27px;width:47px;height:49px;background:#d49a69;border:4px solid #593c38;border-radius:38% 40% 42% 38%;z-index:2}
+.merchant-face i{position:absolute;top:15px;left:8px;width:5px;height:6px;background:#17131a;box-shadow:20px 0 #17131a}
+.merchant-face b{position:absolute;left:12px;top:31px;width:19px;height:4px;background:#713b36}
+.merchant-body{position:absolute;left:9px;bottom:0;width:87px;height:47px;background:#423052;border:5px solid #211a2b;clip-path:polygon(18% 0,82% 0,100% 100%,0 100%)}
+.merchant-hand{position:absolute;right:0;top:60px;width:22px;height:22px;background:#d49a69;border:3px solid #71483e;border-radius:40%;z-index:3}
+.merchant-counter{position:absolute;bottom:0;left:0;right:0;height:36px;background:linear-gradient(#a77a4e,#68452f);border-top:5px solid #d1a36c;display:flex;align-items:center;justify-content:space-around;font-size:20px;text-shadow:1px 2px #302019}
+.merchant-shop-panel{background:#15171e;border:3px ridge #71615a;padding:8px}
+.merchant-tabs{display:flex;gap:8px;margin-bottom:8px}
+.merchant-tabs b,.merchant-tabs span{flex:1;text-align:center;padding:7px 4px;background:#30242a;border:2px solid #765b4b;font-size:9px;letter-spacing:1px;color:#ead0a9}
+.merchant-tabs b{background:#5b402c;color:#ffe1a8}
+.merchant-items{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.merchant-item{min-width:0;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 4px;background:linear-gradient(145deg,#383038,#201c24);border:2px ridge #6e5b53;text-align:center}
+.merchant-item.equipped{border-color:#e5bd70;box-shadow:0 0 9px #e5bd7066}
+.merchant-item .weapon-art{height:47px;width:100%;display:grid;place-items:center;background:radial-gradient(ellipse,#5b4a49,#211d25)}
+.merchant-item .weapon-art svg{width:45px;height:45px;image-rendering:pixelated}
+.merchant-item b{font-size:7px;letter-spacing:.3px;color:#f0d8b4}
+.merchant-item small{font:9px Georgia,serif;color:#c4b29c;min-height:12px}
+.merchant-item button{width:100%;padding:5px 1px;background:linear-gradient(#efc58c,#b97846);border:2px solid #70482e;color:#4c2b1e;font-size:8px;font-weight:900}
+.merchant-item button:disabled{opacity:.45;filter:grayscale(1)}
+.utility-icon{height:47px;display:grid;place-items:center;font-size:30px}
+.shop-bottom{display:flex;justify-content:space-between;gap:8px;align-items:center;margin:8px 0;color:#e9c995;font-size:9px}
+.shop-bottom #shopNote{font:10px Georgia,serif;color:#cbb89d;text-align:right}
+.shop-continue{display:block;width:100%;padding:10px;border:2px solid #6b452f;background:linear-gradient(#f0c88e,#b97846);color:#4b2b1e;font-weight:900;font-size:10px;letter-spacing:1px}
+@media(max-width:650px){
+ .merchant-layout{grid-template-columns:105px minmax(0,1fr);gap:7px;padding:7px;height:98%}
+ .inventory-panel{padding:6px}.panel-heading{font-size:8px;letter-spacing:.5px}
+ .inventory-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-top:7px}
+ .inventory-slot{font-size:18px;border-width:2px}
+ .inventory-footer{font-size:6px;flex-direction:column;gap:5px}
+ .merchant-dialog{font-size:10px;padding:7px;max-width:100%}
+ .merchant-scene{min-height:95px}
+ .merchant-character{transform:scale(.78);transform-origin:top right;right:18%;top:1px}
+ .merchant-counter{height:27px;font-size:14px}
+ .merchant-shop-panel{padding:5px}
+ .merchant-tabs b,.merchant-tabs span{font-size:7px;padding:5px 2px}
+ .merchant-items{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+ .merchant-item{padding:4px 2px}
+ .merchant-item .weapon-art,.utility-icon{height:35px}
+ .merchant-item .weapon-art svg{height:34px;width:34px}
+ .merchant-item b{font-size:6px}
+ .merchant-item small{font-size:8px}
+ .merchant-item button{font-size:7px;padding:4px 0}
+ .shop-bottom{font-size:7px;flex-wrap:wrap}
+ .shop-bottom #shopNote{font-size:8px}
+ .shop-continue{font-size:8px;padding:8px}
+}
